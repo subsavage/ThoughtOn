@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:whisperapp/homepage.dart';
+import 'package:whisperapp/auth/signup_page.dart';
+import 'package:whisperapp/screens/homepage.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: const SignUp(),
     );
   }
 }
