@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "849486311585",
+    "project_id": "thoughton-e0db7",
+    "storage_bucket": "thoughton-e0db7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:849486311585:android:15c326c37284e4dde040e0",
+        "android_client_info": {
+          "package_name": "com.example.whisperapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "849486311585-a6j19c2b9smg2lsjq98p5bhr8d5hb4oc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbvruLWYnpGSyFAmjhJiqdBfgnuvmtZ0Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "849486311585-a6j19c2b9smg2lsjq98p5bhr8d5hb4oc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
