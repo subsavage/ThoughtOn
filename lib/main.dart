@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:whisperapp/auth/signup_page.dart';
 import 'package:whisperapp/screens/homepage.dart';
@@ -21,7 +22,23 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const SignUp(),
+      home: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (BuildContext context, snapshot) {
+          if (snapshot.hasError) {
+            return Text(snapshot.error.toString());
+          }
+          if (snapshot.connectionState == ConnectionState.active) {
+            if (snapshot.data == null) {
+              return SignUpPage();
+            } else {
+              return HomePage();
+            }
+          } else {
+            return SignUpPage();
+          }
+        },
+      ),
     );
   }
 }

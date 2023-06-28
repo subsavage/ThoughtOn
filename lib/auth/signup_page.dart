@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:whisperapp/widgets/signup-button.dart';
 
-class SignUp extends StatelessWidget {
-  const SignUp({super.key});
+class SignUpPage extends StatelessWidget {
+  const SignUpPage({super.key});
 
   @override
   Widget build(BuildContext context) {

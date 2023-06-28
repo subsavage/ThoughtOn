@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:whisperapp/services/signup-services.dart';
 
 class SignUpButton extends StatelessWidget {
-  const SignUpButton({super.key});
+  const SignUpButton({Key? key});
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
+      onTap: () async {
+        await signInwithGoogle();
+      },
       child: Container(
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
