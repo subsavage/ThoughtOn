@@ -1,13 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:whisperapp/auth/signup_page.dart';
 import 'package:whisperapp/screens/homepage.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:whisperapp/services/providers.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (_) => Providers(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -30,12 +35,12 @@ class MyApp extends StatelessWidget {
           }
           if (snapshot.connectionState == ConnectionState.active) {
             if (snapshot.data == null) {
-              return SignUpPage();
+              return const SignUpPage();
             } else {
-              return HomePage();
+              return const HomePage();
             }
           } else {
-            return SignUpPage();
+            return const SignUpPage();
           }
         },
       ),
