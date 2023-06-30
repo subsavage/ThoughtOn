@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:whisperapp/screens/create-thought.dart';
 import 'package:whisperapp/screens/home.dart';
+import 'package:whisperapp/screens/profile-screen.dart';
 import 'package:whisperapp/screens/thought-details.dart';
 import 'package:whisperapp/services/providers.dart';
 import '../services/signout-services.dart';
@@ -45,9 +46,13 @@ class _HomePageState extends State<HomePage> {
         appBar: AppBar(actions: [
           IconButton(
             onPressed: () async {
-              signOut();
+              // signOut();
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ProfileScreen()));
             },
-            icon: const Icon(Icons.power_settings_new),
+            icon: const Icon(Icons.person_2),
           ),
         ]),
         body: pages[provider.currentIndex]);
