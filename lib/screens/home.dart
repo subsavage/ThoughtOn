@@ -18,15 +18,18 @@ class _HomeState extends State<Home> {
         stream: readUsers(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            final List<User> users = snapshot.data!;
-
-            return ListView(
-              children: users.map((user) => thoughtTile(user)).toList(),
+            final users = snapshot.data!;
+            return ListView.builder(
+              itemCount: users.length,
+              itemBuilder: (context, index) {
+                final user = users[index];
+                return thoughtTile(user);
+              },
             );
+          } else if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
           } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const CircularProgressIndicator();
           }
         },
       ),
