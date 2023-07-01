@@ -74,7 +74,7 @@ class ProfileScreen extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: ((context) => const UpdateName())));
+                              builder: ((context) => Container())));
                       // final docUser = FirebaseFirestore.instance
                       //     .collection("thoughts")
                       //     .doc("name");

@@ -1,26 +1,37 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:whisperapp/services/user-services.dart';
+
+import '../services/thought-post-services.dart';
 
 final userName = initAuth();
 
-class User {
-  String id;
+class UserModel {
+  String? id;
   String? name;
-  final String thought;
+  final String? thought;
+  Map? likes;
+  String? postId;
 
-  User({
+  UserModel({
     this.id = '',
+    this.likes,
     required this.name,
+    this.postId = '',
     required this.thought,
   });
   Map<String, dynamic> toJson() => {
         'id': id,
-        'name': userName,
+        'likes': "",
+        'name': userName ?? 'Name not available',
+        'postId': globalpostId,
         'thought': thought,
       };
 
-  static User fromJson(Map<String, dynamic> json) => User(
+  static UserModel fromJson(Map<String, dynamic> json) => UserModel(
         id: json["id"],
-        name: json["name"],
+        likes: json["Likes"],
+        name: json["name"] ?? 'Name not available',
+        postId: json["postId"],
         thought: json["thought"],
       );
 }
