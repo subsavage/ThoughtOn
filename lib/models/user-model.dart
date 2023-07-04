@@ -15,9 +15,9 @@ class UserModel {
   UserModel({
     this.id = '',
     this.likes,
-    required this.name,
+    this.name,
     this.postId = '',
-    required this.thought,
+    this.thought,
   });
   Map<String, dynamic> toJson() => {
         'id': id,

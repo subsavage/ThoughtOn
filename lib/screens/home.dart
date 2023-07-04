@@ -18,34 +18,71 @@ class _HomeState extends State<Home> {
   Map likes = {};
   User? currentUser = FirebaseAuth.instance.currentUser;
 
-  handLikePost() async {
-    String? currentUserId = currentUser?.uid;
-    String? upostId = globalpostId;
-    bool likedByCurrentUser = likes[currentUserId] == true;
+  // handLikePost() async {
+  //   String? currentUserId = currentUser?.uid;
+  //   String? upostId = globalpostId;
+  //   bool likedByCurrentUser = likes[currentUserId] == true;
 
-    if (likedByCurrentUser) {
-      FirebaseFirestore.instance
-          .collection('thoughts')
-          .doc(currentUserId)
-          .update({
-        'likes.$currentUserId': false,
-      });
-      setState(() {
-        likeCount -= 1;
-        isLiked = false;
-        likes[currentUserId] = false;
-      });
-    } else {
-      FirebaseFirestore.instance
-          .collection('thoughts')
-          .doc(currentUserId)
-          .update({'likes.$currentUserId': true});
-      setState(() {
-        likeCount += 1;
-        isLiked = true;
-        likes[currentUserId] = true;
-      });
-    }
+  //   if (likedByCurrentUser) {
+  //     FirebaseFirestore.instance
+  //         .collection('thoughts')
+  //         .doc(currentUserId)
+  //         .update({
+  //       'likes.$currentUserId': false,
+  //     });
+  //     setState(() {
+  //       likeCount -= 1;
+  //       isLiked = false;
+  //       likes[currentUserId] = false;
+  //     });
+  //   } else {
+  //     FirebaseFirestore.instance
+  //         .collection('thoughts')
+  //         .doc(currentUserId)
+  //         .update({'likes.$currentUserId': true});
+  //     setState(() {
+  //       likeCount += 1;
+  //       isLiked = true;
+  //       likes[currentUserId] = true;
+  //     });
+  //   }
+  // }
+  void updateLikes(String? documentId, String userName) {
+    FirebaseFirestore.instance
+        .collection('thoughts')
+        .doc(documentId)
+        .get()
+        .then((DocumentSnapshot<Object?> documentSnapshot) {
+      if (documentSnapshot.exists) {
+        Map<String, dynamic> data =
+            documentSnapshot.data() as Map<String, dynamic>;
+        String postId = data['postId'];
+
+        if (postId == documentId) {
+          // PostId verification successful
+          Map<String, dynamic> likes = data['likes'] ?? {};
+          int likeCount = likes['count'] ?? 0;
+          likeCount++; // Increment like count by 1
+
+          // Update the likes map with the incremented count and the user's name
+          likes['count'] = likeCount;
+          likes['users'] = List<String>.from(likes['users'] ?? [])
+            ..add(userName);
+
+          // Update the document in Firestore
+          FirebaseFirestore.instance
+              .collection('thoughts')
+              .doc(documentId)
+              .update({'likes': likes})
+              .then((value) => print('Likes updated successfully!'))
+              .catchError((error) => print('Failed to update likes: $error'));
+        } else {
+          print('Invalid postId!');
+        }
+      } else {
+        print('Document does not exist!');
+      }
+    });
   }
 
   @override
@@ -92,7 +129,8 @@ class _HomeState extends State<Home> {
                                 children: [
                                   IconButton(
                                     onPressed: () {
-                                      handLikePost();
+                                      updateLikes(user.id, userName);
+                                      print(user.id);
                                     },
                                     icon: Icon(
                                       isLiked
